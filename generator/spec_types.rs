@@ -10,7 +10,7 @@ pub struct ApiDescription {
 #[derive(Serialize, Deserialize, Debug)]
 pub struct TypeDescription {
     pub name: String,
-    pub description: Vec<String>,
+    pub description: Option<Vec<String>>,
     pub fields: Option<Vec<Field>>,
     pub href: String,
     pub subtypes: Option<Vec<String>>,
@@ -22,7 +22,7 @@ pub struct MethodDescription {
     pub name: String,
     pub fields: Option<Vec<Field>>,
     pub returns: Vec<String>,
-    pub description: Vec<String>,
+    pub description: Option<Vec<String>>,
     pub href: String,
 }
 

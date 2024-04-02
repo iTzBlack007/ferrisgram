@@ -127,8 +127,10 @@ fn generate_bot_imp(method: &spec_types::MethodDescription, builder_name: &Strin
         }
     }
     let mut desc = String::new();
-    for d in method.description.iter() {
-        desc = desc.add(format!("\n    /// {}", &d).as_str())
+    if let Some(md) = method.description.as_ref()  {
+        for d in md.iter() {
+            desc = desc.add(format!("\n    /// {}", d).as_str())
+        }
     }
     desc = desc.add(format!("\n    /// <{}>", &method.href).as_str());
     let data = format!("

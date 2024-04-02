@@ -11,7 +11,7 @@ use crate::Bot;
 use std::collections::HashMap;
 
 impl Bot {
-    /// Use this method to upload a file with a sticker for later use in the createNewStickerSet and addStickerToSet methods (the file can be used multiple times). Returns the uploaded File on success.
+    /// Use this method to upload a file with a sticker for later use in the createNewStickerSet, addStickerToSet, or replaceStickerInSet methods (the file can be used multiple times). Returns the uploaded File on success.
     /// <https://core.telegram.org/bots/api#uploadstickerfile>
     pub fn upload_sticker_file<F: InputFile>(
         &self,

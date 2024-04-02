@@ -12,6 +12,9 @@ impl KeyboardButtonRequestUsers {
             user_is_bot: None,
             user_is_premium: None,
             max_quantity: None,
+            request_name: None,
+            request_username: None,
+            request_photo: None,
         }
     }
 }

@@ -4,7 +4,7 @@
 use crate::types::ChatAdministratorRights;
 use serde::{Deserialize, Serialize};
 
-/// This object defines the criteria used to request a suitable chat. The identifier of the selected chat will be shared with the bot when the corresponding button is pressed. More about requesting chats: https://core.telegram.org/bots/features#chat-and-user-selection
+/// This object defines the criteria used to request a suitable chat. Information about the selected chat will be shared with the bot when the corresponding button is pressed. The bot will be granted requested rights in the сhat if appropriate More about requesting chats: https://core.telegram.org/bots/features#chat-and-user-selection
 /// <https://core.telegram.org/bots/api#keyboardbuttonrequestchat>
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct KeyboardButtonRequestChat {
@@ -30,4 +30,13 @@ pub struct KeyboardButtonRequestChat {
     /// Optional. Pass True to request a chat with the bot as a member. Otherwise, no additional restrictions are applied.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub bot_is_member: Option<bool>,
+    /// Optional. Pass True to request the chat's title
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub request_title: Option<bool>,
+    /// Optional. Pass True to request the chat's username
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub request_username: Option<bool>,
+    /// Optional. Pass True to request the chat's photo
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub request_photo: Option<bool>,
 }

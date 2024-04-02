@@ -16,8 +16,9 @@ impl Bot {
         &self,
         name: String,
         user_id: i64,
+        format: String,
     ) -> SetStickerSetThumbnailBuilder<F> {
-        SetStickerSetThumbnailBuilder::new(self, name, user_id)
+        SetStickerSetThumbnailBuilder::new(self, name, user_id, format)
     }
 }
 
@@ -31,16 +32,19 @@ pub struct SetStickerSetThumbnailBuilder<'a, F: InputFile> {
     pub name: String,
     /// User identifier of the sticker set owner
     pub user_id: i64,
+    /// Format of the thumbnail, must be one of "static" for a .WEBP or .PNG image, "animated" for a .TGS animation, or "video" for a WEBM video
+    pub format: String,
 }
 
 impl<'a, F: InputFile> SetStickerSetThumbnailBuilder<'a, F> {
-    pub fn new(bot: &'a Bot, name: String, user_id: i64) -> Self {
+    pub fn new(bot: &'a Bot, name: String, user_id: i64, format: String) -> Self {
         let data = HashMap::new();
         Self {
             bot,
             data,
             name,
             user_id,
+            format,
         }
     }
 
@@ -56,6 +60,11 @@ impl<'a, F: InputFile> SetStickerSetThumbnailBuilder<'a, F> {
 
     pub fn thumbnail(mut self, thumbnail: F) -> Self {
         self.data.insert("thumbnail", thumbnail);
+        self
+    }
+
+    pub fn format(mut self, format: String) -> Self {
+        self.format = format;
         self
     }
 

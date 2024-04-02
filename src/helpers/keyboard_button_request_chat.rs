@@ -16,6 +16,9 @@ impl KeyboardButtonRequestChat {
             user_administrator_rights: None,
             bot_administrator_rights: None,
             bot_is_member: None,
+            request_title: None,
+            request_username: None,
+            request_photo: None,
         }
     }
 }

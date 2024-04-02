@@ -2,14 +2,12 @@
 // DO NOT EDIT!!!
 
 #![allow(clippy::too_many_arguments, clippy::new_without_default)]
+use crate::types::SharedUser;
 use crate::types::UsersShared;
 
 impl UsersShared {
     /// This function creates an empty struct for the object UsersShared.
-    pub fn new(request_id: i64, user_ids: Vec<i64>) -> Self {
-        Self {
-            request_id,
-            user_ids,
-        }
+    pub fn new(request_id: i64, users: Vec<SharedUser>) -> Self {
+        Self { request_id, users }
     }
 }

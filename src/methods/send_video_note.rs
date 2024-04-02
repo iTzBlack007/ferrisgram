@@ -29,6 +29,9 @@ pub struct SendVideoNoteBuilder<'a, F: InputFile> {
     bot: &'a Bot,
     #[serde(skip)]
     data: HashMap<&'a str, F>,
+    /// Unique identifier of the business connection on behalf of which the message will be sent
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub business_connection_id: Option<String>,
     /// Unique identifier for the target chat or username of the target channel (in the format @channelusername)
     pub chat_id: i64,
     /// Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
@@ -49,7 +52,7 @@ pub struct SendVideoNoteBuilder<'a, F: InputFile> {
     /// Description of the message to reply to
     #[serde(skip_serializing_if = "Option::is_none")]
     pub reply_parameters: Option<ReplyParameters>,
-    /// Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+    /// Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account
     #[serde(skip_serializing_if = "Option::is_none")]
     pub reply_markup: Option<InlineKeyboardMarkup>,
 }
@@ -61,6 +64,7 @@ impl<'a, F: InputFile> SendVideoNoteBuilder<'a, F> {
         Self {
             bot,
             data,
+            business_connection_id: None,
             chat_id,
             message_thread_id: None,
             duration: None,
@@ -70,6 +74,11 @@ impl<'a, F: InputFile> SendVideoNoteBuilder<'a, F> {
             reply_parameters: None,
             reply_markup: None,
         }
+    }
+
+    pub fn business_connection_id(mut self, business_connection_id: String) -> Self {
+        self.business_connection_id = Some(business_connection_id);
+        self
     }
 
     pub fn chat_id(mut self, chat_id: i64) -> Self {

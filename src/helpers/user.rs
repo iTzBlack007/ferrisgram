@@ -19,6 +19,7 @@ impl User {
             can_join_groups: None,
             can_read_all_group_messages: None,
             supports_inline_queries: None,
+            can_connect_to_business: None,
         }
     }
 }

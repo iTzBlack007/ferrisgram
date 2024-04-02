@@ -3,7 +3,7 @@
 
 use serde::{Deserialize, Serialize};
 
-/// This object defines the criteria used to request suitable users. The identifiers of the selected users will be shared with the bot when the corresponding button is pressed. More about requesting users: https://core.telegram.org/bots/features#chat-and-user-selection
+/// This object defines the criteria used to request suitable users. Information about the selected users will be shared with the bot when the corresponding button is pressed. More about requesting users: https://core.telegram.org/bots/features#chat-and-user-selection
 /// <https://core.telegram.org/bots/api#keyboardbuttonrequestusers>
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct KeyboardButtonRequestUsers {
@@ -18,4 +18,13 @@ pub struct KeyboardButtonRequestUsers {
     /// Optional. The maximum number of users to be selected; 1-10. Defaults to 1.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub max_quantity: Option<i64>,
+    /// Optional. Pass True to request the users' first and last name
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub request_name: Option<bool>,
+    /// Optional. Pass True to request the users' username
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub request_username: Option<bool>,
+    /// Optional. Pass True to request the users' photo
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub request_photo: Option<bool>,
 }

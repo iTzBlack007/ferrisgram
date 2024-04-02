@@ -25,6 +25,9 @@ impl Bot {
 pub struct SendMediaGroupBuilder<'a> {
     #[serde(skip)]
     bot: &'a Bot,
+    /// Unique identifier of the business connection on behalf of which the message will be sent
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub business_connection_id: Option<String>,
     /// Unique identifier for the target chat or username of the target channel (in the format @channelusername)
     pub chat_id: i64,
     /// Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
@@ -47,6 +50,7 @@ impl<'a> SendMediaGroupBuilder<'a> {
     pub fn new(bot: &'a Bot, chat_id: i64, media: Vec<InputMediaAudio>) -> Self {
         Self {
             bot,
+            business_connection_id: None,
             chat_id,
             message_thread_id: None,
             media,
@@ -54,6 +58,11 @@ impl<'a> SendMediaGroupBuilder<'a> {
             protect_content: None,
             reply_parameters: None,
         }
+    }
+
+    pub fn business_connection_id(mut self, business_connection_id: String) -> Self {
+        self.business_connection_id = Some(business_connection_id);
+        self
     }
 
     pub fn chat_id(mut self, chat_id: i64) -> Self {

@@ -17,9 +17,8 @@ impl Bot {
         name: String,
         title: String,
         stickers: Vec<InputSticker>,
-        sticker_format: String,
     ) -> CreateNewStickerSetBuilder {
-        CreateNewStickerSetBuilder::new(self, user_id, name, title, stickers, sticker_format)
+        CreateNewStickerSetBuilder::new(self, user_id, name, title, stickers)
     }
 }
 
@@ -35,8 +34,6 @@ pub struct CreateNewStickerSetBuilder<'a> {
     pub title: String,
     /// A JSON-serialized list of 1-50 initial stickers to be added to the sticker set
     pub stickers: Vec<InputSticker>,
-    /// Format of stickers in the set, must be one of "static", "animated", "video"
-    pub sticker_format: String,
     /// Type of stickers in the set, pass "regular", "mask", or "custom_emoji". By default, a regular sticker set is created.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub sticker_type: Option<String>,
@@ -52,7 +49,6 @@ impl<'a> CreateNewStickerSetBuilder<'a> {
         name: String,
         title: String,
         stickers: Vec<InputSticker>,
-        sticker_format: String,
     ) -> Self {
         Self {
             bot,
@@ -60,7 +56,6 @@ impl<'a> CreateNewStickerSetBuilder<'a> {
             name,
             title,
             stickers,
-            sticker_format,
             sticker_type: None,
             needs_repainting: None,
         }
@@ -83,11 +78,6 @@ impl<'a> CreateNewStickerSetBuilder<'a> {
 
     pub fn stickers(mut self, stickers: Vec<InputSticker>) -> Self {
         self.stickers = stickers;
-        self
-    }
-
-    pub fn sticker_format(mut self, sticker_format: String) -> Self {
-        self.sticker_format = sticker_format;
         self
     }
 

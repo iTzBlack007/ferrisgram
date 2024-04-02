@@ -7,20 +7,11 @@ use crate::types::StickerSet;
 
 impl StickerSet {
     /// This function creates an empty struct for the object StickerSet.
-    pub fn new(
-        name: String,
-        title: String,
-        sticker_type: String,
-        is_animated: bool,
-        is_video: bool,
-        stickers: Vec<Sticker>,
-    ) -> Self {
+    pub fn new(name: String, title: String, sticker_type: String, stickers: Vec<Sticker>) -> Self {
         Self {
             name,
             title,
             sticker_type,
-            is_animated,
-            is_video,
             stickers,
             thumbnail: None,
         }

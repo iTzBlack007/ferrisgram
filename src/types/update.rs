@@ -2,9 +2,10 @@
 // DO NOT EDIT!!!
 
 use crate::types::{
-    CallbackQuery, ChatBoostRemoved, ChatBoostUpdated, ChatJoinRequest, ChatMemberUpdated,
-    ChosenInlineResult, InlineQuery, Message, MessageReactionCountUpdated, MessageReactionUpdated,
-    Poll, PollAnswer, PreCheckoutQuery, ShippingQuery,
+    BusinessConnection, BusinessMessagesDeleted, CallbackQuery, ChatBoostRemoved, ChatBoostUpdated,
+    ChatJoinRequest, ChatMemberUpdated, ChosenInlineResult, InlineQuery, Message,
+    MessageReactionCountUpdated, MessageReactionUpdated, Poll, PollAnswer, PreCheckoutQuery,
+    ShippingQuery,
 };
 use serde::{Deserialize, Serialize};
 
@@ -27,6 +28,18 @@ pub struct Update {
     /// Optional. New version of a channel post that is known to the bot and was edited. This update may at times be triggered by changes to message fields that are either unavailable or not actively used by your bot.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub edited_channel_post: Option<Message>,
+    /// Optional. The bot was connected to or disconnected from a business account, or a user edited an existing connection with the bot
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub business_connection: Option<BusinessConnection>,
+    /// Optional. New non-service message from a connected business account
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub business_message: Option<Message>,
+    /// Optional. New version of a message from a connected business account
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub edited_business_message: Option<Message>,
+    /// Optional. Messages were deleted from a connected business account
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub deleted_business_messages: Option<BusinessMessagesDeleted>,
     /// Optional. A reaction to a message was changed by a user. The bot must be an administrator in the chat and must explicitly specify "message_reaction" in the list of allowed_updates to receive these updates. The update isn't received for reactions set by bots.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub message_reaction: Option<MessageReactionUpdated>,

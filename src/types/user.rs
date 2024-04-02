@@ -37,4 +37,7 @@ pub struct User {
     /// Optional. True, if the bot supports inline queries. Returned only in getMe.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub supports_inline_queries: Option<bool>,
+    /// Optional. True, if the bot can be connected to a Telegram Business account to receive its messages. Returned only in getMe.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub can_connect_to_business: Option<bool>,
 }

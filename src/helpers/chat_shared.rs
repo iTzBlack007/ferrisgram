@@ -10,6 +10,9 @@ impl ChatShared {
         Self {
             request_id,
             chat_id,
+            title: None,
+            username: None,
+            photo: None,
         }
     }
 }

@@ -120,8 +120,10 @@ fn generate_type(spec: &spec_types::ApiDescription, obj: &spec_types::TypeDescri
     } else {
         data = data.add("use serde::{Deserialize, Serialize};\n\n");
     }
-    for d in obj.description.iter() {
-        data = data.add(format!("\n/// {}", &d).as_str())
+    if let Some(od) = obj.description.as_ref() {
+        for d in od.iter() {
+            data = data.add(format!("\n/// {}", d).as_str())
+        }
     }
     data = data.add(format!("\n/// <{}>", obj.href).as_str());
     if obj.subtypes.is_some() {

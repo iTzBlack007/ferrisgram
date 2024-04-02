@@ -14,10 +14,6 @@ pub struct StickerSet {
     pub title: String,
     /// Type of stickers in the set, currently one of "regular", "mask", "custom_emoji"
     pub sticker_type: String,
-    /// True, if the sticker set contains animated stickers
-    pub is_animated: bool,
-    /// True, if the sticker set contains video stickers
-    pub is_video: bool,
     /// List of all set stickers
     pub stickers: Vec<Sticker>,
     /// Optional. Sticker set thumbnail in the .WEBP, .TGS, or .WEBM format

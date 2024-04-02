@@ -6,9 +6,10 @@ use crate::types::InputSticker;
 
 impl InputSticker {
     /// This function creates an empty struct for the object InputSticker.
-    pub fn new(sticker: String, emoji_list: Vec<String>) -> Self {
+    pub fn new(sticker: String, format: String, emoji_list: Vec<String>) -> Self {
         Self {
             sticker,
+            format,
             emoji_list,
             mask_position: None,
             keywords: None,
