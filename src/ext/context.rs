@@ -24,20 +24,20 @@ impl Context {
             let msg = update.clone().message.unwrap();
             ctx.effective_message = udp.message;
             ctx.effective_user = msg.from;
-            ctx.effective_chat = Some(*msg.chat)
+            ctx.effective_chat = Some(msg.chat)
         } else if update.edited_message.is_some() {
             let msg = update.clone().edited_message.unwrap();
             ctx.effective_message = udp.edited_message;
             ctx.effective_user = msg.from;
-            ctx.effective_chat = Some(*msg.chat)
+            ctx.effective_chat = Some(msg.chat)
         } else if update.channel_post.is_some() {
             let msg = update.clone().channel_post.unwrap();
             ctx.effective_message = udp.channel_post;
-            ctx.effective_chat = Some(*msg.chat)
+            ctx.effective_chat = Some(msg.chat)
         } else if update.edited_channel_post.is_some() {
             let msg = update.clone().edited_channel_post.unwrap();
             ctx.effective_message = udp.edited_channel_post;
-            ctx.effective_chat = Some(*msg.chat)
+            ctx.effective_chat = Some(msg.chat)
         } else if update.inline_query.is_some() {
             let msg = update.clone().inline_query.unwrap();
             ctx.effective_user = Some(msg.from)
@@ -47,7 +47,7 @@ impl Context {
                 match rmsg {
                     MaybeInaccessibleMessage::Message(m) => {
                         ctx.effective_message = Some(m.clone());
-                        ctx.effective_chat = Some(*m.chat)
+                        ctx.effective_chat = Some(m.chat)
                     }
                     MaybeInaccessibleMessage::InaccessibleMessage(m) => {
                         ctx.effective_chat = Some(m.chat)

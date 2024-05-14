@@ -45,7 +45,7 @@ impl<F: Future<Output = Result<GroupIteration>> + Send + 'static> Handler
         let callback_query = update.callback_query.as_ref().unwrap();
         if !self.allow_channel && callback_query.message.is_some() {
             let chat = match callback_query.message.as_ref().unwrap() {
-                MaybeInaccessibleMessage::Message(m) => &*m.chat,
+                MaybeInaccessibleMessage::Message(m) => &m.chat,
                 MaybeInaccessibleMessage::InaccessibleMessage(m) => &m.chat,
             };
             if chat.r#type == "channel" {
