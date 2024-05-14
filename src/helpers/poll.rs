@@ -20,6 +20,7 @@ impl Poll {
         Self {
             id,
             question,
+            question_entities: None,
             options,
             total_voter_count,
             is_closed,

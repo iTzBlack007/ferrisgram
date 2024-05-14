@@ -7,7 +7,7 @@ use crate::types::Message;
 
 impl Message {
     /// This function creates an empty struct for the object Message.
-    pub fn new(message_id: i64, date: i64, chat: Box<Chat>) -> Self {
+    pub fn new(message_id: i64, date: i64, chat: Chat) -> Self {
         Self {
             message_id,
             message_thread_id: None,
@@ -73,6 +73,7 @@ impl Message {
             passport_data: None,
             proximity_alert_triggered: None,
             boost_added: None,
+            chat_background_set: None,
             forum_topic_created: None,
             forum_topic_edited: None,
             forum_topic_closed: None,

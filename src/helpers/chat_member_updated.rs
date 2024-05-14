@@ -23,6 +23,7 @@ impl ChatMemberUpdated {
             old_chat_member,
             new_chat_member,
             invite_link: None,
+            via_join_request: None,
             via_chat_folder_invite_link: None,
         }
     }

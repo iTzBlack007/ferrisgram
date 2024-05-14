@@ -21,6 +21,9 @@ pub struct ChatMemberUpdated {
     /// Optional. Chat invite link, which was used by the user to join the chat; for joining by invite link events only.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub invite_link: Option<ChatInviteLink>,
+    /// Optional. True, if the user joined the chat after sending a direct join request without using an invite link and being approved by an administrator
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub via_join_request: Option<bool>,
     /// Optional. True, if the user joined the chat via a chat folder invite link
     #[serde(skip_serializing_if = "Option::is_none")]
     pub via_chat_folder_invite_link: Option<bool>,

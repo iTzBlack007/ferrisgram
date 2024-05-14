@@ -4,7 +4,7 @@
 use crate::types::PhotoSize;
 use serde::{Deserialize, Serialize};
 
-/// This object contains information about a user that was shared with the bot using a KeyboardButtonRequestUser button.
+/// This object contains information about a user that was shared with the bot using a KeyboardButtonRequestUsers button.
 /// <https://core.telegram.org/bots/api#shareduser>
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct SharedUser {

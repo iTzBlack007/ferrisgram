@@ -50,7 +50,7 @@ pub struct PromoteChatMemberBuilder<'a> {
     /// Pass True if the administrator can post stories to the chat
     #[serde(skip_serializing_if = "Option::is_none")]
     pub can_post_stories: Option<bool>,
-    /// Pass True if the administrator can edit stories posted by other users
+    /// Pass True if the administrator can edit stories posted by other users, post stories to the chat page, pin chat stories, and access the chat's story archive
     #[serde(skip_serializing_if = "Option::is_none")]
     pub can_edit_stories: Option<bool>,
     /// Pass True if the administrator can delete stories posted by other users

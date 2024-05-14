@@ -2,9 +2,9 @@
 // DO NOT EDIT!!!
 
 use crate::types::{
-    Animation, Audio, Chat, ChatBoostAdded, ChatShared, Contact, Dice, Document, ExternalReplyInfo,
-    ForumTopicClosed, ForumTopicCreated, ForumTopicEdited, ForumTopicReopened, Game,
-    GeneralForumTopicHidden, GeneralForumTopicUnhidden, Giveaway, GiveawayCompleted,
+    Animation, Audio, Chat, ChatBackground, ChatBoostAdded, ChatShared, Contact, Dice, Document,
+    ExternalReplyInfo, ForumTopicClosed, ForumTopicCreated, ForumTopicEdited, ForumTopicReopened,
+    Game, GeneralForumTopicHidden, GeneralForumTopicUnhidden, Giveaway, GiveawayCompleted,
     GiveawayCreated, GiveawayWinners, InlineKeyboardMarkup, Invoice, LinkPreviewOptions, Location,
     MaybeInaccessibleMessage, MessageAutoDeleteTimerChanged, MessageEntity, MessageOrigin,
     PassportData, PhotoSize, Poll, ProximityAlertTriggered, Sticker, Story, SuccessfulPayment,
@@ -27,7 +27,7 @@ pub struct Message {
     pub from: Option<User>,
     /// Optional. Sender of the message, sent on behalf of a chat. For example, the channel itself for channel posts, the supergroup itself for messages from anonymous group administrators, the linked channel for messages automatically forwarded to the discussion group. For backward compatibility, the field from contains a fake sender user in non-channel chats, if the message was sent on behalf of a chat.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub sender_chat: Option<Box<Chat>>,
+    pub sender_chat: Option<Chat>,
     /// Optional. If the sender of the message boosted the chat, the number of boosts added by the user
     #[serde(skip_serializing_if = "Option::is_none")]
     pub sender_boost_count: Option<i64>,
@@ -40,7 +40,7 @@ pub struct Message {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub business_connection_id: Option<String>,
     /// Chat the message belongs to
-    pub chat: Box<Chat>,
+    pub chat: Chat,
     /// Optional. Information about the original message for forwarded messages
     #[serde(skip_serializing_if = "Option::is_none")]
     pub forward_origin: Option<MessageOrigin>,
@@ -206,6 +206,9 @@ pub struct Message {
     /// Optional. Service message: user boosted the chat
     #[serde(skip_serializing_if = "Option::is_none")]
     pub boost_added: Option<ChatBoostAdded>,
+    /// Optional. Service message: chat background set
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub chat_background_set: Option<ChatBackground>,
     /// Optional. Service message: forum topic created
     #[serde(skip_serializing_if = "Option::is_none")]
     pub forum_topic_created: Option<ForumTopicCreated>,

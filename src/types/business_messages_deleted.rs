@@ -12,6 +12,6 @@ pub struct BusinessMessagesDeleted {
     pub business_connection_id: String,
     /// Information about a chat in the business account. The bot may not have access to the chat or the corresponding user.
     pub chat: Chat,
-    /// A JSON-serialized list of identifiers of deleted messages in the chat of the business account
+    /// The list of identifiers of deleted messages in the chat of the business account
     pub message_ids: Vec<i64>,
 }

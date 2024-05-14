@@ -6,7 +6,7 @@ use serde::Serialize;
 
 use crate::error::Result;
 use crate::types::Message;
-use crate::types::{InlineKeyboardMarkup, MessageEntity, ReplyParameters};
+use crate::types::{InlineKeyboardMarkup, InputPollOption, MessageEntity, ReplyParameters};
 use crate::Bot;
 
 impl Bot {
@@ -16,7 +16,7 @@ impl Bot {
         &self,
         chat_id: i64,
         question: String,
-        options: Vec<String>,
+        options: Vec<InputPollOption>,
     ) -> SendPollBuilder {
         SendPollBuilder::new(self, chat_id, question, options)
     }
@@ -36,8 +36,14 @@ pub struct SendPollBuilder<'a> {
     pub message_thread_id: Option<i64>,
     /// Poll question, 1-300 characters
     pub question: String,
-    /// A JSON-serialized list of answer options, 2-10 strings 1-100 characters each
-    pub options: Vec<String>,
+    /// Mode for parsing entities in the question. See formatting options for more details. Currently, only custom emoji entities are allowed
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub question_parse_mode: Option<String>,
+    /// A JSON-serialized list of special entities that appear in the poll question. It can be specified instead of question_parse_mode
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub question_entities: Option<Vec<MessageEntity>>,
+    /// A JSON-serialized list of 2-10 answer options
+    pub options: Vec<InputPollOption>,
     /// True, if the poll needs to be anonymous, defaults to True
     #[serde(skip_serializing_if = "Option::is_none")]
     pub is_anonymous: Option<bool>,
@@ -56,7 +62,7 @@ pub struct SendPollBuilder<'a> {
     /// Mode for parsing entities in the explanation. See formatting options for more details.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub explanation_parse_mode: Option<String>,
-    /// A JSON-serialized list of special entities that appear in the poll explanation, which can be specified instead of parse_mode
+    /// A JSON-serialized list of special entities that appear in the poll explanation. It can be specified instead of explanation_parse_mode
     #[serde(skip_serializing_if = "Option::is_none")]
     pub explanation_entities: Option<Vec<MessageEntity>>,
     /// Amount of time in seconds the poll will be active after creation, 5-600. Can't be used together with close_date.
@@ -77,19 +83,26 @@ pub struct SendPollBuilder<'a> {
     /// Description of the message to reply to
     #[serde(skip_serializing_if = "Option::is_none")]
     pub reply_parameters: Option<ReplyParameters>,
-    /// Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user. Not supported for messages sent on behalf of a business account
+    /// Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user
     #[serde(skip_serializing_if = "Option::is_none")]
     pub reply_markup: Option<InlineKeyboardMarkup>,
 }
 
 impl<'a> SendPollBuilder<'a> {
-    pub fn new(bot: &'a Bot, chat_id: i64, question: String, options: Vec<String>) -> Self {
+    pub fn new(
+        bot: &'a Bot,
+        chat_id: i64,
+        question: String,
+        options: Vec<InputPollOption>,
+    ) -> Self {
         Self {
             bot,
             business_connection_id: None,
             chat_id,
             message_thread_id: None,
             question,
+            question_parse_mode: None,
+            question_entities: None,
             options,
             is_anonymous: None,
             r#type: None,
@@ -128,7 +141,17 @@ impl<'a> SendPollBuilder<'a> {
         self
     }
 
-    pub fn options(mut self, options: Vec<String>) -> Self {
+    pub fn question_parse_mode(mut self, question_parse_mode: String) -> Self {
+        self.question_parse_mode = Some(question_parse_mode);
+        self
+    }
+
+    pub fn question_entities(mut self, question_entities: Vec<MessageEntity>) -> Self {
+        self.question_entities = Some(question_entities);
+        self
+    }
+
+    pub fn options(mut self, options: Vec<InputPollOption>) -> Self {
         self.options = options;
         self
     }

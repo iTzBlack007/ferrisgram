@@ -18,13 +18,13 @@ pub struct KeyboardButtonRequestUsers {
     /// Optional. The maximum number of users to be selected; 1-10. Defaults to 1.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub max_quantity: Option<i64>,
-    /// Optional. Pass True to request the users' first and last name
+    /// Optional. Pass True to request the users' first and last names
     #[serde(skip_serializing_if = "Option::is_none")]
     pub request_name: Option<bool>,
-    /// Optional. Pass True to request the users' username
+    /// Optional. Pass True to request the users' usernames
     #[serde(skip_serializing_if = "Option::is_none")]
     pub request_username: Option<bool>,
-    /// Optional. Pass True to request the users' photo
+    /// Optional. Pass True to request the users' photos
     #[serde(skip_serializing_if = "Option::is_none")]
     pub request_photo: Option<bool>,
 }

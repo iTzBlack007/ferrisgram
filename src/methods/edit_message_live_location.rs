@@ -38,6 +38,9 @@ pub struct EditMessageLiveLocationBuilder<'a> {
     pub latitude: f64,
     /// Longitude of new location
     pub longitude: f64,
+    /// New period in seconds during which the location can be updated, starting from the message send date. If 0x7FFFFFFF is specified, then the location can be updated forever. Otherwise, the new value must not exceed the current live_period by more than a day, and the live location expiration date must remain within the next 90 days. If not specified, then live_period remains unchanged
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub live_period: Option<i64>,
     /// The radius of uncertainty for the location, measured in meters; 0-1500
     #[serde(skip_serializing_if = "Option::is_none")]
     pub horizontal_accuracy: Option<f64>,
@@ -61,6 +64,7 @@ impl<'a> EditMessageLiveLocationBuilder<'a> {
             inline_message_id: None,
             latitude,
             longitude,
+            live_period: None,
             horizontal_accuracy: None,
             heading: None,
             proximity_alert_radius: None,
@@ -90,6 +94,11 @@ impl<'a> EditMessageLiveLocationBuilder<'a> {
 
     pub fn longitude(mut self, longitude: f64) -> Self {
         self.longitude = longitude;
+        self
+    }
+
+    pub fn live_period(mut self, live_period: i64) -> Self {
+        self.live_period = Some(live_period);
         self
     }
 
